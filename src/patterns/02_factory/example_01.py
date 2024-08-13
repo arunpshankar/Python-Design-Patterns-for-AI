@@ -1,6 +1,6 @@
 from src.config.logging import logger 
 from abc import ABC, abstractmethod
-from typing import Any, Type
+from typing import Any 
 
 # Base model definition using abstract base class
 class BaseModel(ABC):
