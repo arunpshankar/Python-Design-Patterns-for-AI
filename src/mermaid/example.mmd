@@ -1,0 +1,47 @@
+%%{init: {'theme': 'base', 'themeVariables': { 
+    'primaryColor': '#f8f4ff', 
+    'secondaryColor': '#f4fff8', 
+    'tertiaryColor': '#fff8f4', 
+    'mainBkg': '#ffffff', 
+    'nodeBorder': '#6a5acd', 
+    'clusterBkg': '#fafafa', 
+    'clusterBorder': '#6a5acd', 
+    'lineColor': '#6a5acd', 
+    'fontFamily': 'Helvetica, Arial, sans-serif', 
+    'fontSize': '14px' 
+}}}%%
+
+flowchart TB
+    subgraph Models
+        style Models fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+        M[("Abstract<br>Model")]
+        CM["Classification<br>Model"]
+        M --> CM
+    end
+
+    subgraph Visitors
+        style Visitors fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+        V[("Abstract<br>Visitor")]
+        SV["SHAP<br>Visitor"]
+        LV["LIME<br>Visitor"]
+        V --> SV
+        V --> LV
+    end
+
+    subgraph Process
+        style Process fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+        CM -->|"accept(visitor)"| SV
+        CM -->|"accept(visitor)"| LV
+        SV -->|"visit_classification_model()"| E1["Explain using<br>SHAP"]
+        LV -->|"visit_classification_model()"| E2["Explain using<br>LIME"]
+    end
+
+    classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
+    classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px
+    classDef process fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+
+    class M,V abstract
+    class CM,SV,LV concrete
+    class E1,E2 process
+
+    linkStyle default stroke:#6a5acd,stroke-width:1.5px
