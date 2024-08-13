@@ -66,4 +66,4 @@ if __name__ == "__main__":
 
 
 # change returned accuracy score to .85 and re-run to see the f1 successor in action 
-
+# basically 
