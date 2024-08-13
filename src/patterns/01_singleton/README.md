@@ -14,5 +14,5 @@ The Visitor Pattern allows you to define new operations on objects without alter
 
 ## UML Diagram
 
-![Visitor Pattern](./../../../img/01_singleton.png)
+![Singleton Pattern](./../../../img/01_singleton.png)
 
