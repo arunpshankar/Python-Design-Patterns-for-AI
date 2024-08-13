@@ -25,7 +25,6 @@ class InferenceStrategy(ABC):
         """
         raise NotImplementedError("Subclasses must implement the infer method.")
 
-# Concrete strategy for batch inference
 class BatchInference(InferenceStrategy):
     """
     Concrete strategy for batch inference.
@@ -45,7 +44,6 @@ class BatchInference(InferenceStrategy):
         logger.info("Performing batch inference.")
         return model.predict_batch(data)
 
-# Concrete strategy for stream inference
 class StreamInference(InferenceStrategy):
     """
     Concrete strategy for stream inference.
@@ -65,7 +63,6 @@ class StreamInference(InferenceStrategy):
         logger.info("Performing stream inference.")
         return model.predict_stream(data)
 
-# Context class that dynamically selects a strategy
 class InferenceContext:
     """
     Context class that dynamically selects an inference strategy based on runtime conditions.
@@ -115,7 +112,6 @@ class InferenceContext:
             logger.error("No strategy selected.")
             raise RuntimeError("Inference strategy could not be selected.")
 
-# Example model with different prediction methods
 class Model:
     """
     Example model class with different prediction methods.
@@ -145,7 +141,6 @@ class Model:
         """
         return f"Stream prediction for {data}"
 
-# Usage
 if __name__ == "__main__":
     model = Model()
 
