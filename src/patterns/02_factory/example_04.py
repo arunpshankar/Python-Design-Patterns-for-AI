@@ -11,7 +11,7 @@ class BaseModel(ABC):
     
     @abstractmethod
     def predict(self, text):
-        pass
+        raise NotImplementedError("Subclasses must implement the predict method")
 
 class TextClassificationModel(BaseModel):
     def predict(self, text):
