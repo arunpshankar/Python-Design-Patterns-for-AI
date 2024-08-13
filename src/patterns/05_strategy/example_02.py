@@ -1,3 +1,6 @@
+"""
+This approach allows the system to adapt to changing conditions dynamically, improving performance and user experience without manual intervention.
+"""
 from abc import ABC, abstractmethod
 
 # Define the Strategy interface
@@ -55,6 +58,4 @@ network_latency_high = 150
 print(context.execute_inference(model, data_small, network_latency_high))  # Likely Stream prediction
 print(context.execute_inference(model, data_large, network_latency_low))   # Likely Batch prediction
 
-"""
-This approach allows the system to adapt to changing conditions dynamically, improving performance and user experience without manual intervention.
-"""
+
