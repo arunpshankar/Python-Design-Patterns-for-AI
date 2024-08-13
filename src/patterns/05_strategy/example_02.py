@@ -1,6 +1,7 @@
 from src.config.logging import logger 
 from abc import ABC, abstractmethod
-from typing import Any, Optional
+from typing import Optional
+from typing import Any
 
 
 class InferenceStrategy(ABC):
@@ -25,6 +26,7 @@ class InferenceStrategy(ABC):
         """
         raise NotImplementedError("Subclasses must implement the infer method.")
 
+
 class BatchInference(InferenceStrategy):
     """
     Concrete strategy for batch inference.
@@ -44,6 +46,7 @@ class BatchInference(InferenceStrategy):
         logger.info("Performing batch inference.")
         return model.predict_batch(data)
 
+
 class StreamInference(InferenceStrategy):
     """
     Concrete strategy for stream inference.
@@ -62,6 +65,7 @@ class StreamInference(InferenceStrategy):
         """
         logger.info("Performing stream inference.")
         return model.predict_stream(data)
+
 
 class InferenceContext:
     """
@@ -112,6 +116,7 @@ class InferenceContext:
             logger.error("No strategy selected.")
             raise RuntimeError("Inference strategy could not be selected.")
 
+
 class Model:
     """
     Example model class with different prediction methods.
@@ -140,6 +145,7 @@ class Model:
             str: The stream prediction result.
         """
         return f"Stream prediction for {data}"
+
 
 if __name__ == "__main__":
     model = Model()
