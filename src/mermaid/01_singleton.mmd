@@ -1,0 +1,42 @@
+%%{init: {'theme': 'base', 'themeVariables': { 
+    'primaryColor': '#f8f4ff', 
+    'secondaryColor': '#f4fff8', 
+    'tertiaryColor': '#fff8f4', 
+    'mainBkg': '#ffffff', 
+    'nodeBorder': '#6a5acd', 
+    'clusterBkg': '#fafafa', 
+    'clusterBorder': '#6a5acd', 
+    'lineColor': '#6a5acd', 
+    'fontFamily': 'Helvetica, Arial, sans-serif', 
+    'fontSize': '14px' 
+}}}%%
+
+flowchart TB
+    subgraph ModelConfig["ModelConfig Class"]
+        style ModelConfig fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+        I[("_instance<br>(Class variable)")]
+        N["__new__(cls, *args, **kwargs)"]
+        A["Attributes:<br>model_name<br>model_path<br>api_key"]
+    end
+
+    subgraph Usage["Usage"]
+        style Usage fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+        C1["config1 = ModelConfig()"]
+        C2["config2 = ModelConfig()"]
+    end
+
+    N -->|"if not cls._instance"| I
+    N -->|"return cls._instance"| A
+    C1 --> N
+    C2 --> N
+    I -.->|"refers to"| A
+
+    classDef classVar fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+    classDef method fill:#ffffff,stroke:#6a5acd,stroke-width:2px
+    classDef usage fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+
+    class I classVar
+    class N method
+    class C1,C2 usage
+
+    linkStyle default stroke:#6a5acd,stroke-width:1.5px
