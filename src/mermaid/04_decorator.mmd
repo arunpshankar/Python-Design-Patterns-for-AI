@@ -1,0 +1,54 @@
+%%{init: {'theme': 'base', 'themeVariables': { 
+    'primaryColor': '#f8f4ff', 
+    'secondaryColor': '#f4fff8', 
+    'tertiaryColor': '#fff8f4', 
+    'mainBkg': '#ffffff', 
+    'nodeBorder': '#6a5acd', 
+    'clusterBkg': '#fafafa', 
+    'clusterBorder': '#6a5acd', 
+    'lineColor': '#6a5acd', 
+    'fontFamily': 'Helvetica, Arial, sans-serif', 
+    'fontSize': '14px' 
+}}}%%
+
+flowchart TB
+    subgraph Decorators
+        style Decorators fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+        VD["validate_data"]
+        AD["augment_data"]
+    end
+
+    subgraph CoreFunction
+        style CoreFunction fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+        PD["preprocess_data"]
+    end
+
+    subgraph DataFlow
+        style DataFlow fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+        RD["Raw Data"]
+        VD -->|"Validate"| AD
+        AD -->|"Augment"| PD
+        PD -->|"Clean"| CD["Cleaned Data"]
+        CD --> AUD["Augmented Data"]
+    end
+
+    subgraph Execution
+        style Execution fill:#fff0f5,stroke:#6a5acd,stroke-width:2px
+        MS["Main Script"]
+        MS -->|"Call"| VD
+        AUD -->|"Return"| MS
+    end
+
+    RD -->|"Input"| VD
+    
+    classDef decorator fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+    classDef core fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+    classDef data fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+    classDef execution fill:#fff0f5,stroke:#6a5acd,stroke-width:2px
+
+    class VD,AD decorator
+    class PD core
+    class RD,CD,AUD data
+    class MS execution
+
+    linkStyle default stroke:#6a5acd,stroke-width:1.5px
