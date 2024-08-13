@@ -1,0 +1,52 @@
+%%{init: {'theme': 'base', 'themeVariables': { 
+    'primaryColor': '#f8f4ff', 
+    'secondaryColor': '#f4fff8', 
+    'tertiaryColor': '#fff8f4', 
+    'mainBkg': '#ffffff', 
+    'nodeBorder': '#6a5acd', 
+    'clusterBkg': '#fafafa', 
+    'clusterBorder': '#6a5acd', 
+    'lineColor': '#6a5acd', 
+    'fontFamily': 'Helvetica, Arial, sans-serif', 
+    'fontSize': '14px' 
+}}}%%
+
+flowchart TB
+    subgraph Models
+        style Models fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+        BM[("Abstract<br>BaseModel")]
+        TCM["TextClassification<br>Model"]
+        SM["Summarization<br>Model"]
+        TM["Translation<br>Model"]
+        BM --> TCM
+        BM --> SM
+        BM --> TM
+    end
+
+    subgraph Factory
+        style Factory fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+        MF["ModelFactory"]
+        MF -->|"create_model()"| TCM
+        MF -->|"create_model()"| SM
+        MF -->|"create_model()"| TM
+    end
+
+    subgraph Usage
+        style Usage fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+        U["Main Script"]
+        U -->|"create_model('classification')"| MF
+        U -->|"create_model('summarization')"| MF
+        U -->|"predict()"| P["Model Prediction"]
+    end
+
+    classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
+    classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px
+    classDef factory fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+    classDef usage fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+
+    class BM abstract
+    class TCM,SM,TM concrete
+    class MF factory
+    class U,P usage
+
+    linkStyle default stroke:#6a5acd,stroke-width:1.5px
