@@ -1,31 +1,45 @@
 class ModelPerformanceObserver:
+    def __init__(self, model_name):
+        self.model_name = model_name
+
     def update(self, accuracy, loss):
         if accuracy < 0.7:
-            print("Alert: Model accuracy dropped below threshold!")
-        print(f"Pushed Data - Accuracy: {accuracy}, Loss: {loss}")
+            print(f"Alert: {self.model_name} accuracy dropped below threshold!")
+        print(f"Pushed Data for {self.model_name} - Accuracy: {accuracy}, Loss: {loss}")
 
 class ModelMonitor:
     def __init__(self):
-        self._observers = []
+        self._observers = {}
 
-    def attach(self, observer):
-        if observer not in self._observers:
-            self._observers.append(observer)
+    def attach(self, model_name, observer):
+        if model_name not in self._observers:
+            self._observers[model_name] = observer
 
-    def detach(self, observer):
-        self._observers.remove(observer)
+    def detach(self, model_name):
+        if model_name in self._observers:
+            del self._observers[model_name]
 
-    def notify(self, accuracy, loss):
-        for observer in self._observers:
-            observer.update(accuracy, loss)
+    def notify(self, model_name, accuracy, loss):
+        if model_name in self._observers:
+            self._observers[model_name].update(accuracy, loss)
 
 # Usage
 monitor = ModelMonitor()
-observer = ModelPerformanceObserver()
 
-monitor.attach(observer)
+# Creating observers for Model A and Model B
+observer_a = ModelPerformanceObserver("Model A")
+observer_b = ModelPerformanceObserver("Model B")
 
-# Simulate model training
-accuracy = 0.65
-loss = 0.4
-monitor.notify(accuracy, loss)  # Output: Alert: Model accuracy dropped below threshold!
+# Attaching observers to the monitor
+monitor.attach("Model A", observer_a)
+monitor.attach("Model B", observer_b)
+
+# Simulate model training for Model A
+accuracy_a = 0.65
+loss_a = 0.4
+monitor.notify("Model A", accuracy_a, loss_a)  # Output: Alert: Model A accuracy dropped below threshold!
+
+# Simulate model training for Model B
+accuracy_b = 0.75
+loss_b = 0.3
+monitor.notify("Model B", accuracy_b, loss_b)  # Output: Pushed Data for Model B - Accuracy: 0.75, Loss: 0.3
