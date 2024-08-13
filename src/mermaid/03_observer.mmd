@@ -1,0 +1,53 @@
+%%{init: {'theme': 'base', 'themeVariables': { 
+    'primaryColor': '#f8f4ff', 
+    'secondaryColor': '#f4fff8', 
+    'tertiaryColor': '#fff8f4', 
+    'mainBkg': '#ffffff', 
+    'nodeBorder': '#6a5acd', 
+    'clusterBkg': '#fafafa', 
+    'clusterBorder': '#6a5acd', 
+    'lineColor': '#6a5acd', 
+    'fontFamily': 'Helvetica, Arial, sans-serif', 
+    'fontSize': '14px' 
+}}}%%
+
+flowchart TB
+    subgraph Subject
+        style Subject fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+        MM["ModelMonitor"]
+        MM -->|"attach()"| OD[("Observers<br>Dictionary")]
+        MM -->|"detach()"| OD
+        MM -->|"notify()"| OD
+    end
+
+    subgraph Observer
+        style Observer fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+        MPO["ModelPerformance<br>Observer"]
+        MPO -->|"update()"| LM["Log Metrics"]
+        MPO -->|"update()"| CA{"Check<br>Accuracy"}
+        CA -->|"< 0.7"| AL["Alert"]
+    end
+
+    subgraph Usage
+        style Usage fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+        MS["Main Script"]
+        MS -->|"create"| MM
+        MS -->|"create"| MPO1["Observer A"]
+        MS -->|"create"| MPO2["Observer B"]
+        MS -->|"attach()"| MM
+        MS -->|"notify()"| MM
+    end
+
+    OD -.->|"update()"| MPO
+
+    classDef subject fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+    classDef observer fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+    classDef usage fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+    classDef decision fill:#ffffff,stroke:#6a5acd,stroke-width:2px,shape:diamond
+
+    class MM,OD subject
+    class MPO,LM,AL observer
+    class MS,MPO1,MPO2 usage
+    class CA decision
+
+    linkStyle default stroke:#6a5acd,stroke-width:1.5px
