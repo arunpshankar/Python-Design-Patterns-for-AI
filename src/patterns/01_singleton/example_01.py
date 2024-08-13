@@ -1,3 +1,5 @@
+from src.config.logging import logger 
+
 class ModelConfig:
     _instance = None  # Class-level variable to hold the single instance of the class
 
@@ -16,12 +18,12 @@ class ModelConfig:
 
 if __name__ == '__main__':
     config1 = ModelConfig()
-    print(config1)
+    logger.info(config1)
 
     config2 = ModelConfig()
-    print(config2)
+    logger.info(config2)
 
     # Both variables point to the same instance
     assert config1 is config2
 
-    print(config1.model_name)  # Output: LLM_Model_v1
+    logger.info(config1.model_name)  
