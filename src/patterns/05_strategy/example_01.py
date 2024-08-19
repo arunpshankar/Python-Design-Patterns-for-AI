@@ -3,9 +3,10 @@ from abc import ABC, abstractmethod
 from typing import Any
 
 
-# Define the Strategy interface
 class InferenceStrategy(ABC):
     """
+    Define the Strategy interface.
+
     Abstract base class for defining inference strategies.
     """
     
@@ -26,7 +27,7 @@ class InferenceStrategy(ABC):
         """
         raise NotImplementedError("Subclasses must implement the infer method.")
 
-# Concrete strategy for batch inference
+
 class BatchInference(InferenceStrategy):
     """
     Concrete strategy for batch inference.
@@ -46,7 +47,7 @@ class BatchInference(InferenceStrategy):
         logger.info("Performing batch inference.")
         return model.predict_batch(data)
 
-# Concrete strategy for stream inference
+
 class StreamInference(InferenceStrategy):
     """
     Concrete strategy for stream inference.
@@ -66,7 +67,7 @@ class StreamInference(InferenceStrategy):
         logger.info("Performing stream inference.")
         return model.predict_stream(data)
 
-# Context class that uses a strategy
+
 class InferenceContext:
     """
     Context class that uses an inference strategy.
@@ -80,6 +81,7 @@ class InferenceContext:
             strategy (InferenceStrategy): The inference strategy to be used.
         """
         self._strategy = strategy
+        logger.info(f"Strategy set to {type(strategy).__name__}")
 
     def set_strategy(self, strategy: InferenceStrategy) -> None:
         """
@@ -105,7 +107,7 @@ class InferenceContext:
         logger.info("Executing inference using the current strategy.")
         return self._strategy.infer(model, data)
 
-# Example model with different prediction methods
+
 class Model:
     """
     Example model class with different prediction methods.
@@ -135,11 +137,11 @@ class Model:
         """
         return f"Stream prediction for {data}"
 
-# Usage
+
 if __name__ == "__main__":
     model = Model()
     context = InferenceContext(BatchInference())
-    print(context.execute_inference(model, "input data"))  # Output: Batch prediction for input data
+    logger.info(context.execute_inference(model, "input data"))  # Output: Batch prediction for input data
 
     context.set_strategy(StreamInference())
-    print(context.execute_inference(model, "input data"))  # Output: Stream prediction for input data
+    logger.info(context.execute_inference(model, "input data"))  # Output: Stream prediction for input data
