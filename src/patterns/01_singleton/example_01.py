@@ -1,6 +1,7 @@
 from src.config.logging import logger
 from typing import Optional
 
+
 class ModelConfig:
     """
     Singleton class to manage model configuration. This class ensures that only one instance of the 
@@ -24,13 +25,14 @@ class ModelConfig:
         if cls._instance is None:
             logger.info("Creating a new instance of ModelConfig.")
             cls._instance = super(ModelConfig, cls).__new__(cls, *args, **kwargs)
-            cls.model_name = "Gemini 2.0"
+            cls.model_name = "Gemini Pro 1.5"
             cls.model_path = "/models/gemini"
             cls.api_key = "xyz-abc-123"
         else:
             logger.info("Returning existing instance of ModelConfig.")
         
         return cls._instance
+
 
 if __name__ == "__main__":
     # Creating the first instance of ModelConfig
