@@ -1,0 +1,60 @@
+%%{init: {'theme': 'base', 'themeVariables': { 
+    'primaryColor': '#f8f4ff', 
+    'secondaryColor': '#f4fff8', 
+    'tertiaryColor': '#fff8f4', 
+    'mainBkg': '#ffffff', 
+    'nodeBorder': '#6a5acd', 
+    'clusterBkg': '#fafafa', 
+    'clusterBorder': '#6a5acd', 
+    'lineColor': '#6a5acd', 
+    'fontFamily': 'Helvetica, Arial, sans-serif', 
+    'fontSize': '14px' 
+}}}%%
+
+flowchart TB
+    subgraph LanguageModels
+        style LanguageModels fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+        LM[("LanguageModel<br>(Protocol)")]
+        CM["CohereLLM"]
+        AM["AnthropicLLM"]
+        LM -->|"implements"| CM
+        LM -->|"implements"| AM
+    end
+
+    subgraph Adapter
+        style Adapter fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+        LA["LLMAdapter"]
+        LA -->|"uses"| LM
+        LA -->|"predict()"| PR["Get<br>Prediction"]
+    end
+
+    subgraph ThirdPartyModels
+        style ThirdPartyModels fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+        CM -->|"get_prediction()"| CP["Cohere<br>Prediction"]
+        AM -->|"get_prediction()"| AP["Anthropic<br>Prediction"]
+    end
+
+    subgraph Main
+        style Main fill:#fff0f5,stroke:#6a5acd,stroke-width:2px
+        CL["Client"]
+        CL -->|"creates"| CM
+        CL -->|"creates"| AM
+        CL -->|"creates"| LA
+        CL -->|"calls"| LA
+    end
+
+    PR -->|"calls"| CP
+    PR -->|"calls"| AP
+
+    classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
+    classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px
+    classDef adapter fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+    classDef model fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+    classDef client fill:#fff0f5,stroke:#6a5acd,stroke-width:2px
+
+    class LM abstract
+    class CM,AM,CP,AP concrete
+    class LA adapter
+    class CL client
+
+    linkStyle default stroke:#6a5acd,stroke-width:1.5px
