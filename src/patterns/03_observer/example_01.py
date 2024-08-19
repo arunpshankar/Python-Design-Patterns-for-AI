@@ -96,10 +96,10 @@ if __name__ == "__main__":
 
     # Simulate model training for Model A
     accuracy_a = 0.65
-    loss_a = 0.4
+    loss_a = 0.43
     monitor.notify("Model A", accuracy_a, loss_a)  # Output: Alert: Model A accuracy dropped below threshold!
 
     # Simulate model training for Model B
     accuracy_b = 0.75
-    loss_b = 0.3
+    loss_b = 0.39
     monitor.notify("Model B", accuracy_b, loss_b)  # Output: Pushed Data for Model B - Accuracy: 0.75, Loss: 0.3
