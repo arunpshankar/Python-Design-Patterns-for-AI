@@ -4,7 +4,7 @@ import os
 
 def custom_path_filter(path):
     # Define the project root name
-    project_root = "VAIS-RAG-Patterns"
+    project_root = "Python Design Patterns for AI"
     
     # Find the index of the project root in the path
     idx = path.find(project_root)
@@ -12,6 +12,7 @@ def custom_path_filter(path):
         # Extract the portion of the path after the project root
         path = path[idx+len(project_root):]
     return path
+
 
 class CustomLogRecord(logging.LogRecord):
     def __init__(self, *args, **kwargs):
