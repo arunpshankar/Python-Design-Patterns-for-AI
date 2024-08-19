@@ -1,17 +1,28 @@
-from abc import ABC, abstractmethod
+from src.config.logging import logger 
+from abc import abstractmethod
+from typing import List
+from typing import Any
+from abc import ABC
 
-# Command Interface
+
 class Command(ABC):
+    """
+    Command Interface
+    Defines the structure for command classes.
+    """
     @abstractmethod
-    def execute(self):
+    def execute(self) -> Any:
         """Executes the command."""
-        pass
+        raise NotImplementedError("Subclasses must implement this method.")
 
-# Concrete Command to Train a Model
-class TrainModelCommand(Command):
-    def __init__(self, model, data):
+
+class Train(Command):
+    """
+    Concrete Command to Train a Model.
+    """
+    def __init__(self, model: 'Model', data: Any) -> None:
         """
-        Initializes the TrainModelCommand with a model and training data.
+        Initializes the Train command with a model and training data.
         
         :param model: The model instance to be trained.
         :param data: The training data.
@@ -19,41 +30,50 @@ class TrainModelCommand(Command):
         self.model = model
         self.data = data
 
-    def execute(self):
+    def execute(self) -> str:
         """
         Executes the training process on the model.
         
         :return: A message indicating the model has been trained.
         """
+        logger.info(f"Training model with data: {self.data}")
         return self.model.train(self.data)
 
-# Concrete Command to Deploy a Model
-class DeployModelCommand(Command):
-    def __init__(self, model):
+
+class Deploy(Command):
+    """
+    Concrete Command to Deploy a Model.
+    """
+    def __init__(self, model: 'Model') -> None:
         """
-        Initializes the DeployModelCommand with a model.
+        Initializes the Deploy command with a model.
         
         :param model: The model instance to be deployed.
         """
         self.model = model
 
-    def execute(self):
+    def execute(self) -> str:
         """
         Executes the deployment process for the model.
         
         :return: A message indicating the model has been deployed.
         """
+        logger.info("Deploying model...")
         return deploy_model(self.model)
 
-# Invoker Class
-class WorkflowInvoker:
-    def __init__(self):
-        """
-        Initializes the WorkflowInvoker with an empty list of commands.
-        """
-        self._commands = []
 
-    def add_command(self, command):
+class Workflow:
+    """
+    Invoker Class to kick off the workflow.
+    Manages and executes a series of commands.
+    """
+    def __init__(self) -> None:
+        """
+        Initializes the Workflow with an empty list of commands.
+        """
+        self._commands: List[Command] = []
+
+    def add_command(self, command: Command) -> None:
         """
         Adds a command to the list of commands to be executed.
         
@@ -61,47 +81,56 @@ class WorkflowInvoker:
         """
         self._commands.append(command)
 
-    def execute_commands(self):
+    def execute_commands(self) -> List[str]:
         """
         Executes all commands in the order they were added.
         
         :return: A list of results from each command's execution.
         """
-        results = []
+        logger.info("Executing workflow commands...")
+        results: List[str] = []
         for command in self._commands:
             results.append(command.execute())
         return results
 
-# Example Model Class
-class ExampleModel:
-    def train(self, data):
+
+class Model:
+    """
+    Model Class
+    Represents a machine learning model.
+    """
+    def train(self, data: Any) -> str:
         """
         Simulates training the model on the provided data.
         
         :param data: The data to train the model on.
         :return: A message indicating the training was successful.
         """
+        logger.info(f"Training completed with data: {data}")
         return f"Model trained on {data}"
 
-def deploy_model(model):
+
+def deploy_model(model: Model) -> str:
     """
     Simulates deploying the provided model.
     
     :param model: The model instance to deploy.
     :return: A message indicating the deployment was successful.
     """
+    logger.info(f"Deployment of model: {model}")
     return f"Deployed {model}"
+
 
 # Usage Example
 if __name__ == "__main__":
-    model = ExampleModel()
-    train_command = TrainModelCommand(model, "training data")
-    deploy_command = DeployModelCommand(model)
+    model = Model()
+    train_command = Train(model, "training data")
+    deploy_command = Deploy(model)
 
-    invoker = WorkflowInvoker()
+    invoker = Workflow()
     invoker.add_command(train_command)
     invoker.add_command(deploy_command)
 
     results = invoker.execute_commands()
     for result in results:
-        print(result)  # Output: ['Model trained on training data', 'Deployed <__main__.ExampleModel object at ...>']
+        logger.info(result)  # Output: ['Model trained on training data', 'Deployed <__main__.Model object at ...>']
