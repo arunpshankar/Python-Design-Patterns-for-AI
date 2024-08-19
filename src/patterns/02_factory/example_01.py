@@ -56,7 +56,6 @@ class TextClassificationModel(BaseModel):
         Returns:
             str: The classification result.
         """
-        logger.info(f"Classifying text with {self.model_name}")
         # Replace with actual classification logic.
         return f"Classifying text with {self.model_name}: {text}"
 
@@ -75,7 +74,6 @@ class SummarizationModel(BaseModel):
         Returns:
             str: The summarization result.
         """
-        logger.info(f"Summarizing text with {self.model_name}")
         # Replace with actual summarization logic.
         return f"Summarizing text with {self.model_name}: {text}"
 
@@ -94,7 +92,6 @@ class TranslationModel(BaseModel):
         Returns:
             str: The translation result.
         """
-        logger.info(f"Translating text with {self.model_name}")
         # Replace with actual translation logic.
         return f"Translating text with {self.model_name}: {text}"
 
@@ -138,9 +135,9 @@ class ModelFactory:
 if __name__ == "__main__":
     try:
         classification_model = ModelFactory.create_model('classification', model_name='bert_classifier', pretrained=True)
-        print(classification_model.predict("This is an example text."))
+        logger.info(classification_model.predict("This is an example text."))
 
         summarization_model = ModelFactory.create_model('summarization', model_name='gpt_summarizer', pretrained=False)
-        print(summarization_model.predict("This is a long article that needs summarization."))
+        logger.info(summarization_model.predict("This is a long article that needs summarization."))
     except ValueError as e:
         logger.error(f"Error occurred: {e}")

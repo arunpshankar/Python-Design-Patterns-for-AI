@@ -4,3 +4,7 @@ A repository showcasing Python design patterns specifically adapted for building
 
 
 ![Python Design Patterns](./img/python-design-patterns-for-ai.png)
+
+
+
+export PYTHONPATH=$PYTHONPATH:.
