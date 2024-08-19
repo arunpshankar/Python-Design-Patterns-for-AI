@@ -30,6 +30,7 @@ class ModelPerformanceObserver:
             logger.warning(f"Alert: {self.model_name} accuracy dropped below threshold!")
         logger.info(f"Pushed Data for {self.model_name} - Accuracy: {accuracy}, Loss: {loss}")
 
+
 class ModelMonitor:
     """
     Subject class that manages observers and notifies them of model performance updates.
@@ -81,7 +82,7 @@ class ModelMonitor:
         else:
             logger.warning(f"No observer found for {model_name}.")
 
-# Example usage
+
 if __name__ == "__main__":
     monitor = ModelMonitor()
 
