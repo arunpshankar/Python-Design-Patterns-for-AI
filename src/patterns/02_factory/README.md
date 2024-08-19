@@ -19,5 +19,5 @@ The Factory Pattern is a creational design pattern that provides an interface fo
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/02_factory.png" alt="Factory Pattern" style="width: 50%; height: auto;">
+  <img src="./../../../img/02_factory.png" alt="Factory Pattern" style="width: 75%; height: auto;">
 </div>
