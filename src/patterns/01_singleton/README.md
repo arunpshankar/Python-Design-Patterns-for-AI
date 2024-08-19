@@ -14,5 +14,6 @@ The Visitor Pattern allows you to define new operations on objects without alter
 
 ## UML Diagram
 
-![Singleton Pattern](./../../../img/01_singleton.png)
-
+<div style="text-align: center;">
+  <img src="./../../../img/01_singleton.png" alt="Singleton Pattern" style="width: 50%; height: auto;">
+</div>
