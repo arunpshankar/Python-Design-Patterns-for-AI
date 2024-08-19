@@ -103,3 +103,6 @@ if __name__ == "__main__":
     accuracy_b = 0.75
     loss_b = 0.39
     monitor.notify("Model B", accuracy_b, loss_b)  # Output: Pushed Data for Model B - Accuracy: 0.75, Loss: 0.3
+
+    # Deattach observer for Model A 
+    monitor.detach("Model A")
