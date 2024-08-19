@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Factory Pattern allows you to define new operations on objects without altering their structure.
+
 
 ## Benefits
 
@@ -14,5 +14,5 @@ The Factory Pattern allows you to define new operations on objects without alter
 
 ## UML Diagram
 
-![Visitor Pattern](./../../../img/02_factory.png)
+![Visitor Pattern](./../../../img/03_observer.png)
 
