@@ -19,5 +19,5 @@ The Command Pattern is a behavioral design pattern that encapsulates a request a
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/08_command.png" alt="Command Pattern" style="width: 100%; height: auto;">
+  <img src="./../../../img/08_command.png" alt="Command Pattern" style="width: 70%; height: auto;">
 </div>
