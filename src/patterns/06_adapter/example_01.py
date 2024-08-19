@@ -1,46 +1,73 @@
-class ThirdPartyLLM1:
-    """
-    A mock representation of the first third-party Language Model (LLM).
-    """
-    def get_prediction(self, text: str) -> str:
-        return f"Response from ThirdPartyLLM1: {text}"
+from src.config.logging import logger 
+from typing import Protocol
 
-class ThirdPartyLLM2:
+class LanguageModel(Protocol):
     """
-    A mock representation of the second third-party Language Model (LLM).
+    Protocol defining the interface for third-party Language Models (LLMs).
     """
     def get_prediction(self, text: str) -> str:
-        return f"Response from ThirdPartyLLM2: {text}"
+        ...
+
+
+class CohereLLM:
+    """
+    A mock representation of the Cohere Language Model (LLM).
+    """
+    def get_prediction(self, text: str) -> str:
+        return f"Response from CohereLLM: {text}"
+
+
+class AnthropicLLM:
+    """
+    A mock representation of the Anthropic Language Model (LLM).
+    """
+    def get_prediction(self, text: str) -> str:
+        return f"Response from AnthropicLLM: {text}"
+
 
 class LLMAdapter:
     """
     Adapter class to unify the interface of various third-party LLMs.
+    
+    This adapter standardizes how predictions are fetched from different LLMs.
     """
-    def __init__(self, llm):
+    def __init__(self, llm: LanguageModel):
         """
         Initializes the adapter with an instance of a third-party LLM.
+        
+        :param llm: An instance of a third-party LLM implementing the LanguageModel interface.
         """
         self.llm = llm
 
     def predict(self, text: str) -> str:
         """
-        Standardizes the method for getting predictions from the third-party LLM.
+        Standardized method for getting predictions from the third-party LLM.
+        
+        :param text: The input text for which a prediction is required.
+        :return: A standardized response from the LLM.
         """
-        return self.llm.get_prediction(text)
+        if not text:
+            logger.error("Input text is empty.")
+            return "Error: Input text cannot be empty."
 
-# Usage
+        logger.info(f"Fetching prediction for input: '{text}'")
+        response = self.llm.get_prediction(text)
+        logger.info(f"Received response: '{response}'")
+        return response
+
+
 if __name__ == "__main__":
     # Initialize third-party models
-    third_party_model1 = ThirdPartyLLM1()
-    third_party_model2 = ThirdPartyLLM2()
+    cohere_model = CohereLLM()
+    anthropic_model = AnthropicLLM()
 
     # Create adapters for each model
-    adapter1 = LLMAdapter(third_party_model1)
-    adapter2 = LLMAdapter(third_party_model2)
+    cohere_adapter = LLMAdapter(cohere_model)
+    anthropic_adapter = LLMAdapter(anthropic_model)
 
     # Use the adapters
-    response1 = adapter1.predict("Input for model 1")
-    response2 = adapter2.predict("Input for model 2")
+    response1 = cohere_adapter.predict("Input for Cohere model")
+    logger.info(f'Response: {response1}')
 
-    print(response1)  # Output: Response from ThirdPartyLLM1: Input for model 1
-    print(response2)  # Output: Response from ThirdPartyLLM2: Input for model 2
+    response2 = anthropic_adapter.predict("Input for Anthropic model")
+    logger.info(f'Response: {response1}')
