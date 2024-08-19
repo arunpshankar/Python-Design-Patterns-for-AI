@@ -19,5 +19,5 @@ The Observer Pattern is a behavioral design pattern that allows an object, known
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/03_observer.png" alt="Observer Pattern" style="width: 50%; height: auto;">
+  <img src="./../../../img/03_observer.png" alt="Observer Pattern" style="width: 75%; height: auto;">
 </div>
