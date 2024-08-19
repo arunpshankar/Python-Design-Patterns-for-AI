@@ -9,7 +9,6 @@ The Singleton Pattern ensures that a class has only one instance and provides a 
 - **Controlled Access to Shared Resources:** In AI systems, Singleton can be used to manage access to shared resources like pre-trained models, ensuring consistent behavior and avoiding the overhead of loading models multiple times.
 - **Efficient Resource Management:** By limiting instances, the Singleton pattern helps in managing computational resources efficiently, which is critical in AI environments where GPU memory and CPU cycles are precious.
 - **Global Access:** Singleton provides a global access point to key AI components, such as a model inference engine or a data pipeline manager, ensuring that they can be easily utilized across various modules of the application.
-- **Lazy Initialization:** In AI workflows, Singleton can ensure that heavy resources like neural network models are only loaded when required, optimizing memory usage and reducing startup times.
 
 ## Use Cases
 
