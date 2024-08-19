@@ -2,11 +2,11 @@ from src.config.logging import logger
 from abc import ABC, abstractmethod
 from typing import Any 
 
-# Base model definition using abstract base class
+
 class BaseModel(ABC):
     def __init__(self, model_name: str = 'base_model', pretrained: bool = False) -> None:
         """
-        Initializes the base model.
+        Initialize the base model.
 
         Args:
             model_name (str): The name of the model.
@@ -15,10 +15,18 @@ class BaseModel(ABC):
         self.model_name = model_name
         self.pretrained = pretrained
         
+        self._initialize_model()
+
+    def _initialize_model(self) -> None:
+        """
+        Initializes the model, either by loading pre-trained weights or initializing from scratch.
+        """
         if self.pretrained:
             logger.info(f"Loading pre-trained weights for {self.model_name}")
+            # Here, you would load the actual model weights.
         else:
             logger.info(f"Initializing {self.model_name} from scratch")
+            # Here, you would initialize the model's parameters.
 
     @abstractmethod
     def predict(self, text: str) -> Any:
@@ -33,8 +41,11 @@ class BaseModel(ABC):
         """
         raise NotImplementedError("Subclasses must implement the predict method")
 
-# Subclass for text classification tasks
+
 class TextClassificationModel(BaseModel):
+    """
+    Model for text classification tasks.
+    """
     def predict(self, text: str) -> str:
         """
         Predicts the class of the input text.
@@ -46,10 +57,14 @@ class TextClassificationModel(BaseModel):
             str: The classification result.
         """
         logger.info(f"Classifying text with {self.model_name}")
+        # Replace with actual classification logic.
         return f"Classifying text with {self.model_name}: {text}"
 
-# Subclass for text summarization tasks
+
 class SummarizationModel(BaseModel):
+    """
+    Model for text summarization tasks.
+    """
     def predict(self, text: str) -> str:
         """
         Summarizes the input text.
@@ -61,10 +76,14 @@ class SummarizationModel(BaseModel):
             str: The summarization result.
         """
         logger.info(f"Summarizing text with {self.model_name}")
+        # Replace with actual summarization logic.
         return f"Summarizing text with {self.model_name}: {text}"
 
-# Subclass for text translation tasks
+
 class TranslationModel(BaseModel):
+    """
+    Model for text translation tasks.
+    """
     def predict(self, text: str) -> str:
         """
         Translates the input text.
@@ -76,10 +95,14 @@ class TranslationModel(BaseModel):
             str: The translation result.
         """
         logger.info(f"Translating text with {self.model_name}")
+        # Replace with actual translation logic.
         return f"Translating text with {self.model_name}: {text}"
 
-# Factory class to create models based on task type
+
 class ModelFactory:
+    """
+    Factory class to create models based on the task type.
+    """
     @staticmethod
     def create_model(task_type: str, **kwargs: Any) -> BaseModel:
         """
@@ -97,20 +120,27 @@ class ModelFactory:
         """
         logger.info(f"Creating model for task type: {task_type}")
         
-        if task_type == 'classification':
-            return TextClassificationModel(**kwargs)
-        elif task_type == 'summarization':
-            return SummarizationModel(**kwargs)
-        elif task_type == 'translation':
-            return TranslationModel(**kwargs)
-        else:
+        task_map: dict[str, Type[BaseModel]] = {
+            'classification': TextClassificationModel,
+            'summarization': SummarizationModel,
+            'translation': TranslationModel
+        }
+        
+        model_class = task_map.get(task_type)
+        
+        if model_class is None:
             logger.error(f"Unknown task type: {task_type}")
-            raise ValueError("Unknown task type")
+            raise ValueError(f"Unknown task type: {task_type}")
+        
+        return model_class(**kwargs)
 
-# Example usage
+
 if __name__ == "__main__":
-    classification_model = ModelFactory.create_model('classification', model_name='bert_classifier', pretrained=True)
-    print(classification_model.predict("This is an example text."))  # Output: Classifying text with bert_classifier: This is an example text.
+    try:
+        classification_model = ModelFactory.create_model('classification', model_name='bert_classifier', pretrained=True)
+        print(classification_model.predict("This is an example text."))
 
-    summarization_model = ModelFactory.create_model('summarization', model_name='gpt_summarizer', pretrained=False)
-    print(summarization_model.predict("This is a long article that needs summarization."))  # Output: Summarizing text with gpt_summarizer: This is a long article that needs summarization.
+        summarization_model = ModelFactory.create_model('summarization', model_name='gpt_summarizer', pretrained=False)
+        print(summarization_model.predict("This is a long article that needs summarization."))
+    except ValueError as e:
+        logger.error(f"Error occurred: {e}")
