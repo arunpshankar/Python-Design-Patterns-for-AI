@@ -23,7 +23,7 @@ def cache_decorator(func: Callable) -> Callable:
         """
         # Create a cache key based on function arguments
         key = args + tuple(sorted(kwargs.items()))
-        logger.debug(f"Cache decorator called with key: {key}")
+        logger.info(f"Cache decorator called with key: {key}")
 
         if key in cache:
             logger.info(f"Cache hit for key: {key}")
@@ -33,7 +33,7 @@ def cache_decorator(func: Callable) -> Callable:
         # Call the function and store the result in cache
         result = func(*args, **kwargs)
         cache[key] = result
-        logger.debug(f"Result cached for key: {key}")
+        logger.info(f"Result cached for key: {key}")
         return result
     
     return wrapper
@@ -47,7 +47,7 @@ class Model:
         """
         Initializes the Model.
         """
-        logger.debug("Initializing Model.")
+        logger.info("Initializing Model.")
 
     @cache_decorator
     def predict(self, text: str) -> str:
@@ -57,7 +57,7 @@ class Model:
         :param text: The input text for which the prediction is to be made.
         :return: A simulated prediction result.
         """
-        logger.debug(f"Model received input for prediction: {text}")
+        logger.info(f"Model received input for prediction: {text}")
         return f"Prediction for {text}"
 
 

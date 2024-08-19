@@ -13,7 +13,7 @@ class LLMProxy:
         
         :param model: The model instance to interact with.
         """
-        logger.debug("Initializing LLMProxy.")
+        logger.info("Initializing LLMProxy.")
         self.model = model
         self.cache: Dict[str, str] = {}
 
@@ -33,7 +33,7 @@ class LLMProxy:
         
         logger.info(f"Cache miss for input: {input_text}. Predicting using model.")
         response = self.model.predict(input_text)
-        logger.debug(f"Caching prediction for input: {input_text}")
+        logger.info(f"Caching prediction for input: {input_text}")
         self.cache[input_text] = response
         return response
 
@@ -49,7 +49,7 @@ class Model:
         :param text: The input text for which the prediction is to be made.
         :return: A simulated prediction result.
         """
-        logger.debug(f"Model received input for prediction: {text}")
+        logger.info(f"Model received input for prediction: {text}")
         return f"Prediction for {text}"
 
 
