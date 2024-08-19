@@ -3,6 +3,7 @@ from abc import abstractmethod
 from typing import Optional
 from abc import ABC
 
+
 class Mediator(ABC):
     """
     The Mediator abstract base class defines an interface for communication
@@ -66,14 +67,14 @@ class BaseAgent:
 
 
 class DataAgent(BaseAgent):
-    """
-    The DataAgent is responsible for loading and processing data. It notifies
-    the mediator when data is ready.
-    """
+    def __init__(self) -> None:
+        super().__init__()
+        self._data = None
+
     def process(self) -> None:
         logger.info("DataAgent processing started.")
-        data = self.load_data()
-        logger.info("Data loaded successfully.")
+        self._data = self.load_data()
+        logger.info(f"Data loaded successfully: {self._data}")
         self._mediator.notify(self, "data_ready")
 
     def load_data(self) -> str:
@@ -81,18 +82,18 @@ class DataAgent(BaseAgent):
         return "processed_data"
 
     def get_data(self) -> str:
-        return self.load_data()
+        return self._data
 
 
 class InferenceAgent(BaseAgent):
-    """
-    The InferenceAgent processes the data provided by DataAgent and runs
-    inference on it. It notifies the mediator when inference is complete.
-    """
+    def __init__(self) -> None:
+        super().__init__()
+        self._results = None
+
     def process_data(self, data: str) -> None:
         logger.info(f"InferenceAgent processing data: {data}")
-        results = self.run_inference(data)
-        logger.info(f"Inference completed with results: {results}")
+        self._results = self.run_inference(data)
+        logger.info(f"Inference completed with results: {self._results}")
         self._mediator.notify(self, "inference_done")
 
     def run_inference(self, data: str) -> str:
@@ -100,7 +101,7 @@ class InferenceAgent(BaseAgent):
         return f"inference_results for {data}"
 
     def get_results(self) -> str:
-        return self.run_inference("processed_data")
+        return self._results
 
 
 class EvaluationAgent(BaseAgent):
