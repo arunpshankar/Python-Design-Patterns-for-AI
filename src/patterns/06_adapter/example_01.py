@@ -1,6 +1,7 @@
 from src.config.logging import logger 
 from typing import Protocol
 
+
 class LanguageModel(Protocol):
     """
     Protocol defining the interface for third-party Large Language Models (LLMs).
