@@ -132,7 +132,7 @@ class Model:
         Returns:
             str: The batch prediction result.
         """
-        return f"Batch prediction for {data}"
+        return f"Batch prediction for: {data}"
 
     def predict_stream(self, data: Any) -> str:
         """
@@ -144,7 +144,7 @@ class Model:
         Returns:
             str: The stream prediction result.
         """
-        return f"Stream prediction for {data}"
+        return f"Stream prediction for: {data}"
 
 
 if __name__ == "__main__":
@@ -155,13 +155,13 @@ if __name__ == "__main__":
 
     # Simulate inference with varying data size and network latency
     data_small = "small data"
-    data_large = "large data" * 100  # Simulate large data by repeating the string
+    data_large = "large data " * 120  # Simulate large data by repeating the string
     network_latency_low = 50
     network_latency_high = 150
 
     # Execute inference
     logger.info("Executing inference with small data and high network latency.")
-    print(context.execute_inference(model, data_small, network_latency_high))  # Likely Stream prediction
+    logger.info(context.execute_inference(model, data_small, network_latency_high))  # Likely Stream prediction
     
     logger.info("Executing inference with large data and low network latency.")
-    print(context.execute_inference(model, data_large, network_latency_low))   # Likely Batch prediction
+    logger.info(context.execute_inference(model, data_large, network_latency_low))   # Likely Batch prediction
