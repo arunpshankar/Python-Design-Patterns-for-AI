@@ -3,7 +3,7 @@ from typing import Protocol
 
 class LanguageModel(Protocol):
     """
-    Protocol defining the interface for third-party Language Models (LLMs).
+    Protocol defining the interface for third-party Large Language Models (LLMs).
     """
     def get_prediction(self, text: str) -> str:
         ...
@@ -11,18 +11,18 @@ class LanguageModel(Protocol):
 
 class CohereLLM:
     """
-    A mock representation of the Cohere Language Model (LLM).
+    A mock representation of the Cohere Language Model.
     """
     def get_prediction(self, text: str) -> str:
-        return f"Response from CohereLLM: {text}"
+        return f"Response from CohereLLM for: {text}"
 
 
 class AnthropicLLM:
     """
-    A mock representation of the Anthropic Language Model (LLM).
+    A mock representation of the Anthropic Language Model.
     """
     def get_prediction(self, text: str) -> str:
-        return f"Response from AnthropicLLM: {text}"
+        return f"Response from AnthropicLLM for: {text}"
 
 
 class LLMAdapter:
@@ -66,8 +66,5 @@ if __name__ == "__main__":
     anthropic_adapter = LLMAdapter(anthropic_model)
 
     # Use the adapters
-    response1 = cohere_adapter.predict("Input for Cohere model")
-    logger.info(f'Response: {response1}')
-
-    response2 = anthropic_adapter.predict("Input for Anthropic model")
-    logger.info(f'Response: {response1}')
+    cohere_adapter.predict("Input for Cohere model")
+    anthropic_adapter.predict("Input for Anthropic model")
