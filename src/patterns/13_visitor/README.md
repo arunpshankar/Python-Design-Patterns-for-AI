@@ -1,18 +1,18 @@
-# Visitor Pattern
+# Builder Pattern
 
 ## Overview
 
-The Visitor Pattern allows you to define new operations on objects without altering their structure.
+
 
 ## Benefits
 
-- **foo bar :** foobar
+
 
 ## Use Cases
 
-- **foo bar:** foobar
 
-## UML Diagram
+## Pattern Illustration
 
-![Visitor Pattern](./../../../img/13_visitor.png)
-
+<div align="center">
+  <img src="./../../../img/06_adapter.png" alt="Adapter Pattern" style="width: 100%; height: auto;">
+</div>
