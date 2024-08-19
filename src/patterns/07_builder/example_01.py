@@ -1,5 +1,6 @@
 from src.config.logging import logger 
-from typing import Any, Dict, Type
+from typing import Dict
+from typing import Any
 
 
 class PipelineBuilder:
@@ -96,6 +97,7 @@ class Evaluator:
     def evaluate(self, model: str) -> str:
         logger.info(f"Evaluating model: {model}")
         return f"evaluated {model}"
+
 
 if __name__ == "__main__":
     builder = PipelineBuilder()
