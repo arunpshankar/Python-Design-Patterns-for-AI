@@ -1,0 +1,48 @@
+%%{init: {'theme': 'base', 'themeVariables': { 
+    'primaryColor': '#f8f4ff', 
+    'secondaryColor': '#f4fff8', 
+    'tertiaryColor': '#fff8f4', 
+    'mainBkg': '#ffffff', 
+    'nodeBorder': '#6a5acd', 
+    'clusterBkg': '#fafafa', 
+    'clusterBorder': '#6a5acd', 
+    'lineColor': '#6a5acd', 
+    'fontFamily': 'Helvetica, Arial, sans-serif', 
+    'fontSize': '14px' 
+}}}%%
+
+flowchart TB
+    subgraph Proxy
+        style Proxy fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+        LP["LLMProxy"]
+        LP -->|"predict()"| PC["Check Cache"]
+        PC -->|"Cache Hit"| CR["Return Cached Result"]
+        PC -->|"Cache Miss"| MP["Make Prediction"]
+        MP -->|"Cache Result"| CR
+    end
+
+    subgraph RealSubject
+        style RealSubject fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+        M["Model"]
+        M -->|"predict()"| MP["Make Prediction"]
+    end
+
+    subgraph Client
+        style Client fill:#fff0f5,stroke:#6a5acd,stroke-width:2px
+        CL["Client"]
+        CL -->|"creates"| M
+        CL -->|"creates"| LP
+        CL -->|"calls predict()"| LP
+    end
+
+    classDef proxy fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+    classDef realSubject fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+    classDef client fill:#fff0f5,stroke:#6a5acd,stroke-width:2px
+    classDef operation fill:#ffffff,stroke:#6a5acd,stroke-width:2px
+
+    class LP proxy
+    class M realSubject
+    class CL client
+    class PC,CR,MP operation
+
+    linkStyle default stroke:#6a5acd,stroke-width:1.5px
