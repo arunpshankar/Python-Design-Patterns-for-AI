@@ -1,7 +1,9 @@
 from src.config.logging import logger
 from typing import Callable
 from functools import wraps
-from typing import Tuple, Dict, Any
+from typing import Tuple
+from typing import Dict
+from typing import Any
 
 
 def cache_decorator(func: Callable) -> Callable:
