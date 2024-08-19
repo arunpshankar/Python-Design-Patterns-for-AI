@@ -19,5 +19,5 @@ The Strategy Pattern is a behavioral design pattern that allows you to define a 
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/05_strategy.png" alt="Strategy Pattern" style="width: 75%; height: auto;">
+  <img src="./../../../img/05_strategy.png" alt="Strategy Pattern" style="width: 100%; height: auto;">
 </div>
