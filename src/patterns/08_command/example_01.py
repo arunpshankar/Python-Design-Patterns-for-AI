@@ -1,7 +1,6 @@
-from src.config.logging import logger 
+from src.config.logging import logger
 from abc import abstractmethod
-from typing import List
-from typing import Any
+from typing import List, Any
 from abc import ABC
 
 
@@ -27,6 +26,7 @@ class Train(Command):
         :param model: The model instance to be trained.
         :param data: The training data.
         """
+        logger.info(f"Initializing Train command with model: {model} and data: {data}")
         self.model = model
         self.data = data
 
@@ -36,8 +36,10 @@ class Train(Command):
         
         :return: A message indicating the model has been trained.
         """
-        logger.info(f"Training model with data: {self.data}")
-        return self.model.train(self.data)
+        logger.info(f"Executing Train command. Training model: {self.model} with data: {self.data}")
+        result = self.model.train(self.data)
+        logger.info(f"Train command execution completed. Result: {result}")
+        return result
 
 
 class Deploy(Command):
@@ -50,6 +52,7 @@ class Deploy(Command):
         
         :param model: The model instance to be deployed.
         """
+        logger.info(f"Initializing Deploy command with model: {model}")
         self.model = model
 
     def execute(self) -> str:
@@ -58,8 +61,10 @@ class Deploy(Command):
         
         :return: A message indicating the model has been deployed.
         """
-        logger.info("Deploying model...")
-        return deploy_model(self.model)
+        logger.info(f"Executing Deploy command. Deploying model: {self.model}")
+        result = self.model.deploy()
+        logger.info(f"Deploy command execution completed. Result: {result}")
+        return result
 
 
 class Workflow:
@@ -71,6 +76,7 @@ class Workflow:
         """
         Initializes the Workflow with an empty list of commands.
         """
+        logger.info("Initializing Workflow with an empty command list.")
         self._commands: List[Command] = []
 
     def add_command(self, command: Command) -> None:
@@ -79,6 +85,7 @@ class Workflow:
         
         :param command: An instance of a Command.
         """
+        logger.info(f"Adding command to Workflow: {command}")
         self._commands.append(command)
 
     def execute_commands(self) -> List[str]:
@@ -87,10 +94,13 @@ class Workflow:
         
         :return: A list of results from each command's execution.
         """
-        logger.info("Executing workflow commands...")
+        logger.info("Executing all commands in the Workflow.")
         results: List[str] = []
         for command in self._commands:
-            results.append(command.execute())
+            logger.info(f"Executing command: {command}")
+            result = command.execute()
+            results.append(result)
+        logger.info("All commands in the Workflow have been executed.")
         return results
 
 
@@ -106,31 +116,38 @@ class Model:
         :param data: The data to train the model on.
         :return: A message indicating the training was successful.
         """
-        logger.info(f"Training completed with data: {data}")
-        return f"Model trained on {data}"
+        logger.info(f"Training model with data: {data}")
+        result = f'Training model on data: {data}'
+        logger.info(f"Model training completed successfully. Result: {result}")
+        return result
 
-
-def deploy_model(model: Model) -> str:
-    """
-    Simulates deploying the provided model.
-    
-    :param model: The model instance to deploy.
-    :return: A message indicating the deployment was successful.
-    """
-    logger.info(f"Deployment of model: {model}")
-    return f"Deployed {model}"
+    def deploy(self) -> str:
+        """
+        Simulates deploying the model.
+        
+        :return: A message indicating the deployment was successful.
+        """
+        logger.info("Initiating model deployment.")
+        result = 'Deploying model...'
+        logger.info(f"Model deployment completed successfully. Result: {result}")
+        return result
 
 
 # Usage Example
 if __name__ == "__main__":
+    name = 'BERT'
+    data = 'mock data'
+
     model = Model()
-    train_command = Train(model, "training data")
+    
+    # Create commands for training and deploying the model
+    train_command = Train(model, data)
     deploy_command = Deploy(model)
 
-    invoker = Workflow()
-    invoker.add_command(train_command)
-    invoker.add_command(deploy_command)
+    # Setup a workflow and add commands to it
+    workflow = Workflow()
+    workflow.add_command(train_command)
+    workflow.add_command(deploy_command)
 
-    results = invoker.execute_commands()
-    for result in results:
-        logger.info(result)  # Output: ['Model trained on training data', 'Deployed <__main__.Model object at ...>']
+    # Execute the workflow and print the results
+    workflow.execute_commands()
