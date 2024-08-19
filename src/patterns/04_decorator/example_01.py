@@ -51,6 +51,7 @@ def augment_data(func: Callable[[str], str]) -> Callable[[str], str]:
     
     return wrapper
 
+
 @validate_data
 @augment_data
 def preprocess_data(data: str) -> str:
@@ -67,7 +68,7 @@ def preprocess_data(data: str) -> str:
     logger.info(f"Data cleaned: {cleaned_data}")
     return cleaned_data
 
-# Example usage
+
 if __name__ == "__main__":
     try:
         raw_data = " raw_data "
