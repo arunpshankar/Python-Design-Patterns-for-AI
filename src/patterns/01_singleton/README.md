@@ -14,7 +14,12 @@ The Visitor Pattern allows you to define new operations on objects without alter
 
 ## UML Diagram
 
-<div style="display: flex; justify-content: center;">
-  <img src="./../../../img/01_singleton.png" alt="Singleton Pattern" style="width: 50%; height: auto;">
-</div>
+<table align="center">
+<tr>
+<td>
 
+<img src="./../../../img/01_singleton.png" alt="Singleton Pattern" style="width: 50%; height: auto; display: block; margin-left: auto; margin-right: auto;">
+
+</td>
+</tr>
+</table>
