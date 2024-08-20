@@ -27,7 +27,6 @@ In the pull model, components request information from the mediator when they ne
 - **Resource Optimization:** Use the pull model when system resources need to be conserved, as it reduces the load on the mediator and network by avoiding continuous data pushes.
 - **Asynchronous Processing:** In systems where components process data asynchronously, the pull model allows them to fetch data at their own pace, which is useful in scenarios like background data processing or periodic data synchronization.
 
-
 ### Push Model
 
 In the push model, the mediator actively sends updates or messages to the components it manages as soon as it receives or generates new information. The components do not request data; instead, they receive it automatically from the mediator.
