@@ -1,33 +1,67 @@
 import logging
 from abc import ABC, abstractmethod
+from typing import Any
+from src.config.logging import logger
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger.setLevel(logging.INFO)
 
 class Model(ABC):
+    """
+    The Model abstract class defines a method for accepting visitors.
+    Concrete implementations will handle specific visitor interactions.
+    """
     @abstractmethod
-    def accept(self, visitor):
-        pass
+    def accept(self, visitor: 'Visitor') -> None:
+        raise NotImplementedError("Subclasses must implement the `accept` method.")
 
 class ClassificationModel(Model):
-    def accept(self, visitor):
-        logging.info(f'{self.__class__.__name__}: Accepting visitor {visitor.__class__.__name__}')
+    """
+    ClassificationModel represents a specific type of AI model.
+    It accepts visitors that perform operations like model explanation.
+    """
+    def accept(self, visitor: 'Visitor') -> None:
+        logger.info(f'{self.__class__.__name__}: Accepting visitor {visitor.__class__.__name__}')
         visitor.visit_classification_model(self)
 
 class Visitor(ABC):
+    """
+    The Visitor abstract class defines a method for visiting a ClassificationModel.
+    Concrete visitors will implement specific logic for interacting with the model.
+    """
     @abstractmethod
-    def visit_classification_model(self, model):
-        pass
+    def visit_classification_model(self, model: ClassificationModel) -> None:
+        raise NotImplementedError("Subclasses must implement the `visit_classification_model` method.")
 
 class SHAPVisitor(Visitor):
-    def visit_classification_model(self, model):
-        logging.info(f'{self.__class__.__name__}: Visiting {model.__class__.__name__}')
-        logging.info('Applying SHAP to explain model predictions')
+    """
+    SHAPVisitor applies SHAP (SHapley Additive exPlanations) to explain the predictions
+    of a classification model.
+    """
+    def visit_classification_model(self, model: ClassificationModel) -> None:
+        logger.info(f'{self.__class__.__name__}: Visiting {model.__class__.__name__}')
+        logger.info('Applying SHAP to explain model predictions')
+        # Add SHAP-specific implementation here
+        self.apply_shap(model)
+
+    def apply_shap(self, model: ClassificationModel) -> None:
+        logger.info('SHAP explanation applied successfully.')
+        # Placeholder for SHAP logic
 
 class LIMEVisitor(Visitor):
-    def visit_classification_model(self, model):
-        logging.info(f'{self.__class__.__name__}: Visiting {model.__class__.__name__}')
-        logging.info('Applying LIME to explain model predictions')
+    """
+    LIMEVisitor applies LIME (Local Interpretable Model-agnostic Explanations) to explain
+    the predictions of a classification model.
+    """
+    def visit_classification_model(self, model: ClassificationModel) -> None:
+        logger.info(f'{self.__class__.__name__}: Visiting {model.__class__.__name__}')
+        logger.info('Applying LIME to explain model predictions')
+        # Add LIME-specific implementation here
+        self.apply_lime(model)
+
+    def apply_lime(self, model: ClassificationModel) -> None:
+        logger.info('LIME explanation applied successfully.')
+        # Placeholder for LIME logic
 
 # Usage
 if __name__ == "__main__":
@@ -36,8 +70,8 @@ if __name__ == "__main__":
     shap_visitor = SHAPVisitor()
     lime_visitor = LIMEVisitor()
 
-    logging.info('Starting SHAP visitor process')
-    model.accept(shap_visitor)  # Output: Applying SHAP to explain model predictions
+    logger.info('Starting SHAP visitor process')
+    model.accept(shap_visitor)  # Applying SHAP to explain model predictions
 
-    logging.info('Starting LIME visitor process')
-    model.accept(lime_visitor)  # Output: Applying LIME to explain model predictions
+    logger.info('Starting LIME visitor process')
+    model.accept(lime_visitor)  # Applying LIME to explain model predictions
