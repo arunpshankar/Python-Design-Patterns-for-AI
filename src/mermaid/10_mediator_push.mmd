@@ -1,66 +1,83 @@
-%%{init: {'theme': 'base', 'themeVariables': { 
-    'primaryColor': '#f8f4ff', 
-    'secondaryColor': '#f4fff8', 
-    'tertiaryColor': '#fff8f4', 
-    'mainBkg': '#ffffff', 
-    'nodeBorder': '#6a5acd', 
-    'clusterBkg': '#fafafa', 
-    'clusterBorder': '#6a5acd', 
-    'lineColor': '#6a5acd', 
-    'fontFamily': 'Helvetica, Arial, sans-serif', 
-    'fontSize': '14px' 
+%%{init: {'theme': 'base', 'themeVariables': { 
+    'primaryColor': '#f8f4ff', 
+    'secondaryColor': '#f4fff8', 
+    'tertiaryColor': '#fff8f4', 
+    'mainBkg': '#ffffff', 
+    'nodeBorder': '#6a5acd', 
+    'clusterBkg': '#fafafa', 
+    'clusterBorder': '#6a5acd', 
+    'lineColor': '#6a5acd', 
+    'fontFamily': 'Helvetica, Arial, sans-serif', 
+    'fontSize': '14px' 
 }}}%%
 
 flowchart TB
-    subgraph MediatorInterface
-        style MediatorInterface fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
-        MI[("Mediator<br>(Abstract)")]
-        WF["Workflow"]
-        MI -->|"implements"| WF
-    end
+    subgraph MediatorInterface
+        style MediatorInterface fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+        MI[("Mediator<br>(Abstract)")]
+        WF["Workflow"]
+        MI -->|"implements"| WF
+    end
 
-    subgraph Colleagues
-        style Colleagues fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
-        BA[("BaseAgent<br>(Abstract)")]
-        DA["DataAgent"]
-        IA["InferenceAgent"]
-        EA["EvaluationAgent"]
-        BA -->|"extends"| DA
-        BA -->|"extends"| IA
-        BA -->|"extends"| EA
-    end
+    subgraph Colleagues
+        style Colleagues fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+        BA[("BaseAgent<br>(Abstract)")]
+        DA["DataAgent"]
+        IA["InferenceAgent"]
+        EA["EvaluationAgent"]
+        BA -->|"extends"| DA
+        BA -->|"extends"| IA
+        BA -->|"extends"| EA
+    end
 
-    subgraph MediatorImplementation
-        style MediatorImplementation fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
-        WF -->|"notify()"| NT["Notify"]
-        WF -->|"send_message()"| SM["Send Message"]
-        NT -->|"data_ready"| PD["Process Data"]
-        NT -->|"inference_done"| EV["Evaluate"]
-    end
+    subgraph Mediator
+        style Mediator fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+        WF -->|"notify()"| NT["Notify"]
+        WF -->|"send_data()"| SD["Send Data"]
+        NT -->|"data_ready"| PD["Process Data"]
+        NT -->|"inference_done"| EV["Evaluate"]
+    end
 
-    subgraph AgentActions
-        style AgentActions fill:#fff0f5,stroke:#6a5acd,stroke-width:2px
-        DA -->|"process()"| LD["Load Data"]
-        IA -->|"process_data()"| RI["Run Inference"]
-        EA -->|"evaluate()"| ER["Evaluate Results"]
-    end
+    subgraph AgentActions
+        style AgentActions fill:#fff0f5,stroke:#6a5acd,stroke-width:2px
+        DA -->|"process()"| LD["Load Data"]
+        IA -->|"infer()"| RI["Run Inference"]
+        EA -->|"evaluate()"| ER["Evaluate Results"]
+    end
 
-    WF -->|"coordinates"| DA
-    WF -->|"coordinates"| IA
-    WF -->|"coordinates"| EA
+    subgraph Client
+        style Client fill:#ffe5ec,stroke:#6a5acd,stroke-width:2px
+        CL["Client"]
+        CL -->|"creates"| DA
+        CL -->|"creates"| IA
+        CL -->|"creates"| EA
+        CL -->|"creates"| WF
+        CL -->|"triggers"| TP["Start Process"]
+    end
 
-    DA -->|"notifies"| WF
-    IA -->|"notifies"| WF
-    EA -->|"sends message"| WF
+    WF -->|"coordinates"| DA
+    WF -->|"coordinates"| IA
+    WF -->|"coordinates"| EA
 
-    classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
-    classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px
-    classDef mediator fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
-    classDef action fill:#fff0f5,stroke:#6a5acd,stroke-width:2px
+    DA -->|"notifies"| WF
+    IA -->|"notifies"| WF
+    EA -->|"sends results"| WF
 
-    class MI,BA abstract
-    class WF,DA,IA,EA concrete
-    class WF mediator
-    class LD,RI,ER action
+    SD -->|"pushes to"| IA
+    SD -->|"pushes to"| EA
 
-    linkStyle default stroke:#6a5acd,stroke-width:1.5px
+    TP -->|"calls"| DA
+
+    classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
+    classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px
+    classDef mediator fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+    classDef action fill:#fff0f5,stroke:#6a5acd,stroke-width:2px
+     classDef client fill:#ffe5ec,stroke:#6a5acd,stroke-width:2px
+
+    class MI,BA abstract
+    class WF,DA,IA,EA concrete
+    class WF mediator
+    class LD,RI,ER action
+    class CL client
+
+    linkStyle default stroke:#6a5acd,stroke-width:1.5px
