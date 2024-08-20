@@ -1,10 +1,6 @@
-import logging
-from abc import ABC, abstractmethod
-from typing import Any
+from abc import abstractmethod
 from src.config.logging import logger
-
-# Configure logging
-logger.setLevel(logging.INFO)
+from abc import ABC
 
 class Model(ABC):
     """
@@ -15,6 +11,7 @@ class Model(ABC):
     def accept(self, visitor: 'Visitor') -> None:
         raise NotImplementedError("Subclasses must implement the `accept` method.")
 
+
 class ClassificationModel(Model):
     """
     ClassificationModel represents a specific type of AI model.
@@ -24,6 +21,7 @@ class ClassificationModel(Model):
         logger.info(f'{self.__class__.__name__}: Accepting visitor {visitor.__class__.__name__}')
         visitor.visit_classification_model(self)
 
+
 class Visitor(ABC):
     """
     The Visitor abstract class defines a method for visiting a ClassificationModel.
@@ -32,6 +30,7 @@ class Visitor(ABC):
     @abstractmethod
     def visit_classification_model(self, model: ClassificationModel) -> None:
         raise NotImplementedError("Subclasses must implement the `visit_classification_model` method.")
+
 
 class SHAPVisitor(Visitor):
     """
@@ -48,6 +47,7 @@ class SHAPVisitor(Visitor):
         logger.info('SHAP explanation applied successfully.')
         # Placeholder for SHAP logic
 
+
 class LIMEVisitor(Visitor):
     """
     LIMEVisitor applies LIME (Local Interpretable Model-agnostic Explanations) to explain
@@ -63,7 +63,7 @@ class LIMEVisitor(Visitor):
         logger.info('LIME explanation applied successfully.')
         # Placeholder for LIME logic
 
-# Usage
+
 if __name__ == "__main__":
     model = ClassificationModel()
 
