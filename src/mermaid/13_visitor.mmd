@@ -34,12 +34,12 @@ flowchart TB
         ClassificationModel --> LIMEVisitor
     end
     
-    classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
-    classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px
-    classDef interaction fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+    classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5;
+    classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px;
+    classDef interaction fill:#fff8f4,stroke:#6a5acd,stroke-width:2px;
 
-    class Model, Visitor abstract
-    class ClassificationModel, SHAPVisitor, LIMEVisitor concrete
-    class Interaction interaction
+    class Model,Visitor abstract;
+    class ClassificationModel,SHAPVisitor,LIMEVisitor concrete;
+    class Interaction interaction;
 
-    linkStyle default stroke:#6a5acd,stroke-width:1.5px
+    linkStyle default stroke:#6a5acd,stroke-width:1.5px;
