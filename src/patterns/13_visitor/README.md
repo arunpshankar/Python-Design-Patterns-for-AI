@@ -19,5 +19,5 @@ The Visitor Pattern is a behavioral design pattern that allows you to add furthe
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/13_visitor.png" alt="Visitor Pattern" style="width: 100%; height: auto;">
+  <img src="./../../../img/13_visitor.png" alt="Visitor Pattern" style="width: 75%; height: auto;">
 </div>
