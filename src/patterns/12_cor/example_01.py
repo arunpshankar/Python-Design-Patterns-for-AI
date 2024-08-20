@@ -80,4 +80,6 @@ if __name__ == "__main__":
     run_evaluation_pipeline()
 
 
-# Note: Change returned accuracy score to 0.85 and re-run to see the F1 successor in action
+# Note: To test the alternative scenario - Change the returned accuracy score to 0.6 by the AccuracyHandler class (which will be <0.7 as per the threshold conditional logic) 
+# and re-run the evaluation pipeline. This should result in a warning message, and the pipeline will break without running the F1ScoreHandler.
+
