@@ -27,14 +27,24 @@ flowchart TB
         Visitor --> SHAPVisitor
         Visitor --> LIMEVisitor
     end
+
+    subgraph Client
+        style Client fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+        MainFunction["main()"]
+        MainFunction --> ClassificationModel
+        MainFunction --> SHAPVisitor
+        MainFunction --> LIMEVisitor
+    end
     
     ClassificationModel --> SHAPVisitor
     ClassificationModel --> LIMEVisitor
     
     classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5;
     classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px;
+    classDef client fill:#fff8f4,stroke:#6a5acd,stroke-width:2px;
 
     class Model,Visitor abstract;
     class ClassificationModel,SHAPVisitor,LIMEVisitor concrete;
+    class MainFunction client;
 
     linkStyle default stroke:#6a5acd,stroke-width:1.5px;
