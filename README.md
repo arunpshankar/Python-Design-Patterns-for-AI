@@ -30,8 +30,6 @@ export PYTHONPATH=$PYTHONPATH:.
 python src/patterns/01_singleton/example_01.py 
 ```
 
-
-
 ## Key Design Patterns for AI
 
 ### 1. Singleton Pattern
@@ -82,7 +80,7 @@ The Factory Pattern is a creational design pattern that provides an interface fo
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/02_factory.png" alt="Factory Pattern" style="width: 85%; height: auto;">
+  <img src="./img/02_factory.png" alt="Factory Pattern" style="width: 85%; height: auto;">
 </div>
 
 ---
@@ -108,7 +106,7 @@ The Observer Pattern is a behavioral design pattern that allows an object, known
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/03_observer.png" alt="Observer Pattern" style="width: 75%; height: auto;">
+  <img src="./img/03_observer.png" alt="Observer Pattern" style="width: 75%; height: auto;">
 </div>
 
 ---
@@ -134,7 +132,7 @@ The Decorator Pattern is a structural design pattern that allows behavior to be 
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/04_decorator.png" alt="Decorator Pattern" style="width: 75%; height: auto;">
+  <img src="./img/04_decorator.png" alt="Decorator Pattern" style="width: 75%; height: auto;">
 </div>
 
 ---
@@ -160,7 +158,7 @@ The Strategy Pattern is a behavioral design pattern that defines a family of int
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/05_strategy.png" alt="Strategy Pattern" style="width: 100%; height: auto;">
+  <img src="./img/05_strategy.png" alt="Strategy Pattern" style="width: 100%; height: auto;">
 </div>
 
 ---
@@ -186,7 +184,7 @@ The Adapter Pattern is a structural design pattern that allows incompatible inte
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/06_adapter.png" alt="Adapter Pattern" style="width: 100%; height: auto;">
+  <img src="./img/06_adapter.png" alt="Adapter Pattern" style="width: 100%; height: auto;">
 </div>
 
 ---
@@ -212,7 +210,7 @@ The Builder Pattern is a creational design pattern that allows for the construct
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/07_builder.png" alt="Builder Pattern" style="width: 100%; height: auto;">
+  <img src="./img/07_builder.png" alt="Builder Pattern" style="width: 100%; height: auto;">
 </div>
 
 ---
@@ -238,7 +236,7 @@ The Command Pattern is a behavioral design pattern that encapsulates a request a
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/08_command.png" alt="Command Pattern" style="width: 100%; height: auto;">
+  <img src="./img/08_command.png" alt="Command Pattern" style="width: 100%; height: auto;">
 </div>
 
 ---
@@ -264,7 +262,7 @@ The Proxy Pattern is a structural design pattern that provides a surrogate or pl
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/09_proxy.png" alt="Proxy Pattern" style="width: 100%; height: auto;">
+  <img src="./img/09_proxy.png" alt="Proxy Pattern" style="width: 100%; height: auto;">
 </div>
 
 ---
@@ -312,7 +310,7 @@ In the pull model, components request information from the mediator when they ne
 ### Pull Model
 
 <div align="center">
-  <img src="./../../../img/10_mediator_pull.png" alt="Mediator Pattern Pull Model" style="width: 100%; height: auto;">
+  <img src="./img/10_mediator_pull.png" alt="Mediator Pattern Pull Model" style="width: 100%; height: auto;">
 </div>
 
 ### Push Model
@@ -344,7 +342,7 @@ The State Pattern is a behavioral design pattern that allows an object to alter 
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/11_state.png" alt="State Pattern" style="width: 75%; height: auto;">
+  <img src="./img/11_state.png" alt="State Pattern" style="width: 75%; height: auto;">
 </div>
 
 ---
@@ -370,7 +368,7 @@ The Chain of Responsibility Pattern is a behavioral design pattern that allows a
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/12_cor.png" alt="Chain of Responsibility Pattern" style="width: 75%; height: auto;">
+  <img src="./img/12_cor.png" alt="Chain of Responsibility Pattern" style="width: 75%; height: auto;">
 </div>
 
 ---
@@ -396,5 +394,5 @@ The Visitor Pattern is a behavioral design pattern that allows you to add furthe
 ## Pattern Illustration
 
 <div align="center">
-  <img src="./../../../img/13_visitor.png" alt="Visitor Pattern" style="width: 75%; height: auto;">
+  <img src="./img/13_visitor.png" alt="Visitor Pattern" style="width: 75%; height: auto;">
 </div>
