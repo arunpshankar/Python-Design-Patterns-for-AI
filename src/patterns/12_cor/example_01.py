@@ -1,69 +1,83 @@
-import logging
-from abc import ABC, abstractmethod
+from src.config.logging import logger
+from abc import abstractmethod
+from typing import Optional 
+from typing import Any
+from abc import ABC
 
-# Set up logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class EvaluationHandler(ABC):
-    def __init__(self, successor=None):
+    """
+    Abstract base class for handling evaluation in a chain of responsibility pattern.
+    """
+
+    def __init__(self, successor: Optional['EvaluationHandler'] = None) -> None:
         self.successor = successor
-        logging.info(f"{self.__class__.__name__} initialized with successor: {self.successor.__class__.__name__ if self.successor else 'None'}")
+        logger.info(f"{self.__class__.__name__} initialized with successor: {self.successor.__class__.__name__ if self.successor else 'None'}")
 
     @abstractmethod
-    def evaluate(self, model, data):
-        logging.info(f"Starting evaluation with {self.__class__.__name__}")
+    def evaluate(self, model: Any, data: Any) -> Optional[float]:
         if self.successor:
-            logging.info(f"Passing control to successor: {self.successor.__class__.__name__}")
+            logger.info(f"Passing control to successor: {self.successor.__class__.__name__}")
             return self.successor.evaluate(model, data)
-        logging.info(f"No successor found. Ending evaluation in {self.__class__.__name__}")
+        logger.info(f"No successor found. Ending evaluation in {self.__class__.__name__}")
         return None
 
+
 class AccuracyHandler(EvaluationHandler):
-    def evaluate(self, model, data):
-        logging.info("Evaluating accuracy...")
+    """
+    Handler for evaluating the accuracy of the model.
+    """
+
+    def evaluate(self, model: Any, data: Any) -> Optional[float]:
+        logger.info("Evaluating accuracy...")
         accuracy = self.calculate_accuracy(model, data)
-        logging.info(f"Accuracy calculated: {accuracy:.2f}")
+        logger.info(f"Accuracy calculated: {accuracy:.2f}")
         if accuracy < 0.7:
-            logging.warning(f"Accuracy {accuracy:.2f} is below threshold (0.7). Stopping evaluation.")
+            logger.warning(f"Accuracy {accuracy:.2f} is below threshold (0.7). Stopping evaluation.")
             return None
-        logging.info(f"Accuracy {accuracy:.2f} is above threshold. Continuing evaluation.")
+        logger.info(f"Accuracy {accuracy:.2f} is above threshold. Continuing evaluation.")
         return super().evaluate(model, data)
 
-    def calculate_accuracy(self, model, data):
-        logging.debug("Calculating accuracy for model and data...")
+    def calculate_accuracy(self, model: Any, data: Any) -> float:
+        logger.info("Calculating accuracy for model and data...")
         # Simulated accuracy calculation
         return 0.85
-    
+
 
 class F1ScoreHandler(EvaluationHandler):
-    def evaluate(self, model, data):
-        logging.info("Evaluating F1 score...")
+    """
+    Handler for evaluating the F1 score of the model.
+    """
+
+    def evaluate(self, model: Any, data: Any) -> Optional[float]:
+        logger.info("Evaluating F1 score...")
         f1_score = self.calculate_f1_score(model, data)
-        logging.info(f"F1 Score calculated: {f1_score:.2f}")
+        logger.info(f"F1 Score calculated: {f1_score:.2f}")
         return super().evaluate(model, data)
 
-    def calculate_f1_score(self, model, data):
-        logging.debug("Calculating F1 score for model and data...")
+    def calculate_f1_score(self, model: Any, data: Any) -> float:
+        logger.info("Calculating F1 score for model and data...")
         # Simulated F1 score calculation
         return 0.75
 
-# Usage example
-def run_evaluation_pipeline():
-    logging.info("Starting evaluation pipeline...")
+
+def run_evaluation_pipeline() -> None:
+    """
+    Runs the evaluation pipeline with accuracy and F1 score handlers.
+    """
+    logger.info("Starting evaluation pipeline...")
     f1_handler = F1ScoreHandler()
     accuracy_handler = AccuracyHandler(successor=f1_handler)
 
     model = "example_model"
     data = "example_data"
 
-    logging.info("Running evaluation handlers...")
+    logger.info("Running evaluation handlers...")
     accuracy_handler.evaluate(model, data)
-    logging.info("Evaluation pipeline finished.")
+    logger.info("Evaluation pipeline finished.")
 
 if __name__ == "__main__":
     run_evaluation_pipeline()
 
 
-
-# change returned accuracy score to .85 and re-run to see the f1 successor in action 
-# basically 
+# Note: Change returned accuracy score to 0.85 and re-run to see the F1 successor in action
