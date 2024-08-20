@@ -6,9 +6,8 @@ from abc import ABC
 
 class Mediator(ABC):
     """
-    The Mediator abstract base class defines an interface for communication
-    between components (agents). Components use this interface to notify
-    the mediator about various events and to send messages between components.
+    The Mediator abstract base class defines an interface for communication between components (agents). 
+    Components use this interface to notify the mediator about various events and to send messages between components, functioning as a pull mechanism for communication.
     """
 
     @abstractmethod
