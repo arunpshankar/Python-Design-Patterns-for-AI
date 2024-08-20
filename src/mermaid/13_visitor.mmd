@@ -31,13 +31,12 @@ flowchart TB
     subgraph Client
         style Client fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
         MainFunction["main()"]
-        MainFunction --> ClassificationModel
-        MainFunction --> SHAPVisitor
-        MainFunction --> LIMEVisitor
+        MainFunction -->|"accept(shap_visitor)"| ClassificationModel
+        MainFunction -->|"accept(lime_visitor)"| ClassificationModel
     end
     
-    ClassificationModel --> SHAPVisitor
-    ClassificationModel --> LIMEVisitor
+    ClassificationModel -->|"visit_classification_model()"| SHAPVisitor
+    ClassificationModel -->|"visit_classification_model()"| LIMEVisitor
     
     classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5;
     classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px;
