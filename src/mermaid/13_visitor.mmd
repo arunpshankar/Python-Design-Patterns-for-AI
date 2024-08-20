@@ -30,8 +30,8 @@ flowchart TB
     
     subgraph Interaction
         style Interaction fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
-        ClassificationModel -->|accept(visitor)| SHAPVisitor
-        ClassificationModel -->|accept(visitor)| LIMEVisitor
+        ClassificationModel --> SHAPVisitor
+        ClassificationModel --> LIMEVisitor
     end
     
     classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
