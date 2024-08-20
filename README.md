@@ -316,7 +316,7 @@ In the pull model, components request information from the mediator when they ne
 ### Push Model
 
 <div align="center">
-  <img src="./../../../img/10_mediator_push.png" alt="Mediator Pattern Push Model" style="width: 100%; height: auto;">
+  <img src="./img/10_mediator_push.png" alt="Mediator Pattern Push Model" style="width: 100%; height: auto;">
 </div>
 
 ---
