@@ -1,0 +1,50 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+    'primaryColor': '#f8f4ff',
+    'secondaryColor': '#f4fff8',
+    'tertiaryColor': '#fff8f4',
+    'mainBkg': '#ffffff',
+    'nodeBorder': '#6a5acd',
+    'clusterBkg': '#fafafa',
+    'clusterBorder': '#6a5acd',
+    'lineColor': '#6a5acd',
+    'fontFamily': 'Helvetica, Arial, sans-serif',
+    'fontSize': '14px'
+}}}%%
+
+flowchart TB
+    subgraph States
+        style States fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+        State[("Abstract State")]
+        DLS["DataLoadingState"]
+        TS["TrainingState"]
+        VS["ValidationState"]
+        DS["DeploymentState"]
+        State --> DLS
+        State --> TS
+        State --> VS
+        State --> DS
+    end
+
+    subgraph Context
+        style Context fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+        CT["Context"]
+        DLS -->|"handle(context)"| CT
+        TS -->|"handle(context)"| CT
+        VS -->|"handle(context)"| CT
+        DS -->|"handle(context)"| CT
+    end
+    
+    CT -->|"request()"| DLS
+    CT -->|"request()"| TS
+    CT -->|"request()"| VS
+    CT -->|"request()"| DS
+
+    classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
+    classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px
+    classDef process fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+
+    class State abstract
+    class DLS,TS,VS,DS concrete
+    class CT process
+
+    linkStyle default stroke:#6a5acd,stroke-width:1.5px

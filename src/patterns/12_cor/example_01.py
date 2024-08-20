@@ -41,7 +41,7 @@ class AccuracyHandler(EvaluationHandler):
     def calculate_accuracy(self, model: Any, data: Any) -> float:
         logger.info("Calculating accuracy for model and data...")
         # Simulated accuracy calculation
-        return 0.85
+        return 0.85  # try changing this value to 0.65
 
 
 class F1ScoreHandler(EvaluationHandler):

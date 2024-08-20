@@ -1,0 +1,39 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+    'primaryColor': '#f8f4ff',
+    'secondaryColor': '#f4fff8',
+    'tertiaryColor': '#fff8f4',
+    'mainBkg': '#ffffff',
+    'nodeBorder': '#6a5acd',
+    'clusterBkg': '#fafafa',
+    'clusterBorder': '#6a5acd',
+    'lineColor': '#6a5acd',
+    'fontFamily': 'Helvetica, Arial, sans-serif',
+    'fontSize': '14px'
+}}}%%
+
+flowchart TB
+    subgraph Handlers
+        style Handlers fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px
+        EH[("Abstract EvaluationHandler")]
+        AH["AccuracyHandler"]
+        F1H["F1ScoreHandler"]
+        EH --> AH
+        EH --> F1H
+    end
+
+    subgraph Process
+        style Process fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+        pipeline["Evaluation Pipeline"]
+        AH -->|"evaluate(model, data)"| pipeline
+        F1H -->|"evaluate(model, data)"| pipeline
+    end
+    
+    classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
+    classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px
+    classDef process fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+
+    class EH abstract
+    class AH,F1H concrete
+    class pipeline process
+
+    linkStyle default stroke:#6a5acd,stroke-width:1.5px
