@@ -21,13 +21,13 @@ Design patterns are reusable solutions to common software design problems. In AI
 To run the examples provided in this repository, follow these steps:
 
 ```bash
-git clone https://github.com/arunpshankar/Python-Design-Patterns-for-AI.git
-cd Python-Design-Patterns-for-AI
+$ git clone https://github.com/arunpshankar/Python-Design-Patterns-for-AI.git
+$ cd Python-Design-Patterns-for-AI
 
-export PYTHONPATH=$PYTHONPATH:.
+$ export PYTHONPATH=$PYTHONPATH:.
 
 # Run the Singleton pattern example
-python src/patterns/01_singleton/example_01.py 
+$ python src/patterns/01_singleton/example_01.py 
 ```
 
 ## Key Design Patterns for AI
