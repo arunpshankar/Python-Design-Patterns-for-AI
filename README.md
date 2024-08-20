@@ -15,7 +15,6 @@ Design patterns are reusable solutions to common software design problems. In AI
 - **Maintainability:** Design patterns encourage the creation of clear, modular code, making it easier to understand, modify, and extend your AI systems over time.
 - **Efficiency:** Certain patterns are specifically designed to optimize resource usage, which is crucial in AI systems where computational power and memory are often limiting factors.
 
-
 ## Running the Examples
 
 To run the examples provided in this repository, follow these steps:
