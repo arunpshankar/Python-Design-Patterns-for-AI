@@ -288,7 +288,7 @@ The Mediator Pattern is a behavioral design pattern that defines an object that 
 
 ### Push Model
 
-In the push model, the mediator actively sends updates or messages to the components it manages as soon as it receives or generates new information. The components do not request data; instead, they receive it automatically from the mediator.
+In the push model, the mediator actively sends updates or messages to the components it manages as soon as the mediator receives or generates new information. The components do not request the data; instead, they receive it automatically from the mediator. The data or message is actively pushed from the mediator to the components, without the components explicitly asking for it.
 
 **When to Use:**
 - **Real-Time Systems:** Use the push model in systems where real-time updates are crucial, such as in live data feeds, real-time monitoring, or event-driven architectures where the mediator needs to push updates to components as soon as changes occur.
@@ -297,7 +297,7 @@ In the push model, the mediator actively sends updates or messages to the compon
 
 ### Pull Model
 
-In the pull model, components request information from the mediator when they need it. The mediator does not actively send updates; instead, it waits for components to request the data.
+In the pull model, the components request information from the mediator when they need it. The mediator does not actively send updates; instead, it waits for the components to request the data. The components explicitly request the data or information from the mediator, and the mediator provides the data only when asked.
 
 **When to Use:**
 - **On-Demand Data Retrieval:** The pull model is suitable when components need data only occasionally or when it is critical to reduce unnecessary data traffic, such as in batch processing systems or analytics platforms where data is fetched on demand.
