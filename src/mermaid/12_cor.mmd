@@ -28,12 +28,20 @@ flowchart TB
         F1H -->|"evaluate(model, data)"| pipeline
     end
     
+    subgraph Client
+        style Client fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+        runPipeline["run_evaluation_pipeline()"]
+        runPipeline --> pipeline
+    end
+    
     classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
     classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px
     classDef process fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
+    classDef client fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
 
     class EH abstract
     class AH,F1H concrete
     class pipeline process
+    class runPipeline client
 
     linkStyle default stroke:#6a5acd,stroke-width:1.5px
