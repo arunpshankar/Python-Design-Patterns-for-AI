@@ -6,10 +6,6 @@ __pycache__/
 # C extensions
 *.so
 
-# venv 
-.python-design-patterns
-.python-design-patterns/
-
 # DS_Store
 .DS_Store
 .DS_Store/
