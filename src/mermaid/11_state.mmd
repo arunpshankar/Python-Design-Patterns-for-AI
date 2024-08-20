@@ -28,10 +28,9 @@ flowchart TB
     subgraph Context
         style Context fill:#f4fff8,stroke:#6a5acd,stroke-width:2px
         CT["Context"]
-        DLS -->|"handle(context)"| CT
-        TS -->|"handle(context)"| CT
-        VS -->|"handle(context)"| CT
-        DS -->|"handle(context)"| CT
+        DLS -->|"Data Loaded"| TS
+        TS -->|"Training Completed"| VS
+        VS -->|"Validation Completed"| DS
     end
     
     CT -->|"request()"| DLS
@@ -41,14 +40,8 @@ flowchart TB
 
     subgraph Client
         style Client fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
-        ClientCall1["context.request()"]
-        ClientCall2["context.request()"]
-        ClientCall3["context.request()"]
-        ClientCall4["context.request()"]
-        ClientCall1 --> CT
-        ClientCall2 --> CT
-        ClientCall3 --> CT
-        ClientCall4 --> CT
+        ClientCall["context.request()"]
+        ClientCall --> CT
     end
 
     classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
@@ -58,6 +51,6 @@ flowchart TB
     class State abstract
     class DLS,TS,VS,DS concrete
     class CT process
-    class ClientCall1,ClientCall2,ClientCall3,ClientCall4 process
+    class ClientCall process
 
     linkStyle default stroke:#6a5acd,stroke-width:1.5px
