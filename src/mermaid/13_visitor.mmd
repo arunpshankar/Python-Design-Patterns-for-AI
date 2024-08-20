@@ -36,12 +36,20 @@ flowchart TB
         LV -->|"visit_classification_model()"| E2["Explain using<br>LIME"]
     end
 
+    subgraph Client
+        style Client fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+        runVisitors["run_visitors()"]
+        runVisitors --> CM
+    end
+
     classDef abstract fill:#f8f4ff,stroke:#6a5acd,stroke-width:2px,stroke-dasharray: 5 5
     classDef concrete fill:#ffffff,stroke:#6a5acd,stroke-width:2px
     classDef process fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
+    classDef client fill:#fff8f4,stroke:#6a5acd,stroke-width:2px
 
     class M,V abstract
     class CM,SV,LV concrete
     class E1,E2 process
+    class runVisitors client
 
     linkStyle default stroke:#6a5acd,stroke-width:1.5px
